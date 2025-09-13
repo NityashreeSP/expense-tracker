@@ -1,12 +1,10 @@
-const express = require("express");
-const router = express.Router();
 const Transaction = require("../models/Transaction");
 const { generateHash } = require("../utils/hash");
 
 // Create a new transaction
-router.post("/", async (req, res) => {
-  const { from, to, amount } = req.body;
+exports.createTransaction = async (req, res) => {
   try {
+    const { from, to, amount } = req.body;
     const timestamp = Date.now();
     const hash = generateHash({ from, to, amount, timestamp });
 
@@ -18,10 +16,10 @@ router.post("/", async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Failed to create transaction" });
   }
-});
+};
 
-// Get all transactions (with optional search/filter)
-router.get("/", async (req, res) => {
+// Get all transactions (with optional search)
+exports.getTransactions = async (req, res) => {
   try {
     const searchQuery = req.query.search;
     let filter = {};
@@ -41,10 +39,10 @@ router.get("/", async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Failed to fetch transactions" });
   }
-});
+};
 
 // Get a single transaction by ID
-router.get("/:id", async (req, res) => {
+exports.getTransactionById = async (req, res) => {
   try {
     const transaction = await Transaction.findById(req.params.id);
     if (!transaction) return res.status(404).json({ message: "Transaction not found" });
@@ -53,10 +51,10 @@ router.get("/:id", async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Failed to fetch transaction" });
   }
-});
+};
 
 // Update a transaction by ID
-router.put("/:id", async (req, res) => {
+exports.updateTransaction = async (req, res) => {
   try {
     const { from, to, amount } = req.body;
     const timestamp = Date.now();
@@ -73,10 +71,10 @@ router.put("/:id", async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Failed to update transaction" });
   }
-});
+};
 
 // Delete a transaction by ID
-router.delete("/:id", async (req, res) => {
+exports.deleteTransaction = async (req, res) => {
   try {
     await Transaction.findByIdAndDelete(req.params.id);
     res.json({ message: "Transaction deleted successfully" });
@@ -84,6 +82,4 @@ router.delete("/:id", async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Failed to delete transaction" });
   }
-});
-
-module.exports = router;
+};
