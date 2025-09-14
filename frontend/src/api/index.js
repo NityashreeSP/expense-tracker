@@ -1,7 +1,8 @@
 import axios from "axios";
 
-// Set base URL to your backend API
-const API = axios.create({ baseURL: "http://localhost:5000/api" });
+const BASE_URL = process.env.REACT_APP_API_URL || "/api";
+
+const API = axios.create({ baseURL: BASE_URL });
 
 // ===== Budgets =====
 export const getBudgets = () => API.get("/budgets");

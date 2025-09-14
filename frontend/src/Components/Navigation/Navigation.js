@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import avatar from '../../img/avatar.png' // placeholder logo
-import { signout } from '../../utils/Icons'
 import { menuItems } from '../../utils/menuItems'
 
 function Navigation({ active, setActive }) {
     return (
+
         <NavStyled>
             {/* College/Institution Info */}
+
             <div className="institution-con">
                 
                 <div className="text">
@@ -31,6 +32,7 @@ function Navigation({ active, setActive }) {
                     )
                 })}
             </ul>
+
 
             
         </NavStyled>

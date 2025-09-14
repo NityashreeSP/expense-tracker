@@ -19,6 +19,7 @@ function Dashboard() {
             <InnerLayout>
                 <h1>📊 Dashboard</h1>
 
+
                 {/* Summary Cards */}
                 <div className="summary-cards">
                     <div className="card income">
@@ -61,6 +62,7 @@ function Dashboard() {
                         <p>Max: ${Math.max(...expenses.map(item => item.amount)) || 0}</p>
                     </div>
                 </div>
+
             </InnerLayout>
         </DashboardStyled>
     )
